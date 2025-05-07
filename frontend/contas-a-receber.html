@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contas a Receber</title>
+  <link rel="stylesheet" href="/frontend/assets/css/dashboard.css"/>
+  <link rel="stylesheet" href="/frontend/assets/css/cadastro-base.css"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
+  <style>
+    .form-section.full-width { grid-column: 1 / -1; }
+    .required::after { content: " *"; color: red; }
+
+    #loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.spinner {
+  border: 6px solid #ccc;
+  border-top: 6px solid #2C5042;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+  </style>
+</head>
+<body>
+<div class="dashboard-container">
+    <div class="sidebar">
+        <div class="logo">
+            <h1>Agro Dashboard</h1>
+        </div>
+        <nav class="menu">
+            <ul>
+                <li class="active">
+                    <a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                </li>
+                <li class="has-submenu">
+                    <a href="#"><i class="fas fa-file-alt"></i> Relatórios <i class="fas fa-chevron-down"></i></a>
+                    <ul class="submenu">
+                        <li><a href="fluxo-caixa-mensal.html">Fluxo de Caixa Mensal</a></li>
+                        <li><a href="fluxo-caixa-anual.html">Fluxo de Caixa Anual</a></li>
+                        <li><a href="#">Margem de Contribuição</a></li>
+                        <li><a href="#">DRE</a></li>
+                        <li><a href="#">Balancete</a></li>
+                        <li><a href="#">Relatórios de Pagamento</a></li>
+                    </ul>
+                </li>
+                <li class="has-submenu">
+                    <a href="#"><i class="fas fa-exchange-alt"></i> Movimentações <i class="fas fa-chevron-down"></i></a>
+                    <ul class="submenu">
+                        <li><a href="movimentacoes.html">Saldo de Contas</a></li>
+                        <li><a href="movimentacoes.html">Projeção de Caixa</a></li>
+                        <li><a href="movimentacoes.html">Contas a Pagar/Receber</a></li>
+                        <li><a href="movimentacoes.html">Baixa de pagamentos</a></li>
+                    </ul>
+                </li>
+                <li class="has-submenu">
+                    <a href="#"><i class="fas fa-plus-circle"></i> Adicionar Movimentações <i class="fas fa-chevron-down"></i></a>
+                    <ul class="submenu">
+                        <li><a href="contas-a-pagar.html">Contas a Pagar</a></li>
+                        <li><a href="contas-a-receber.html">Contas a Receber</a></li>
+                        <li><a href="transferencia.html">Transferências</a></li>
+                        <li><a href="#">Aporte</a></li>
+                        <li><a href="#">Débitos bancários</a></li>
+                    </ul>
+                </li>
+                <li class="has-submenu">
+                    <a href="#"><i class="fas fa-edit"></i> Cadastros <i class="fas fa-chevron-down"></i></a>
+                    <ul class="submenu">
+                        <li><a href="cadastro-fornecedor.html">Fornecedores</a></li>
+                        <li><a href="centro-custo.html">Centro de Custos</a></li>
+                        <li><a href="cadastro-cliente.html">Clientes</a></li>
+                        <li><a href="cadastro-departamentos.html">Departamentos</a></li>
+                        <li><a href="cadastro-talhao.html">Talhões</a></li>
+                        <li><a href="cadastro-safra.html">Safras</a></li>
+                        <li><a href="cadastro-contas.html">Contas Bancárias</a></li>
+                        <li><a href="cadastro-plano-conta.html">Plano de Contas</a></li>
+                        <li><a href="cadastro-produtos.html">Produtos</a></li>
+                        <li><a href="cadastro-folha-pagamentos.html">Folha de Pagamentos</a></li>
+                        <li><a href="folhas_pendentes.html">Aprovação de Folha de Pagamentos</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><i class="fas fa-university"></i> Conciliação Bancária</a>
+                </li>
+
+                <li class="has-submenu">
+                    <a href="#"><i class="fas fa-cogs"></i> Configurações <i class="fas fa-chevron-down"></i></a>
+                    <ul class="submenu">
+                      <li><a href="formas_pagamento.html">Formas de Pagamento</a></li>
+                      <li><a href="tipos_documento.html">Tipos de Documento</a></li>
+                      <li><a href="depara.html">Cadastro de De/Para</a></li>
+                      <li><a href="cadastro-usuario.html">Usuários</a></li>
+                    </ul>
+                  </li>
+            </ul>
+        </nav>
+    </div>
+
+  <div class="main-content">
+    <header class="header">
+      <div class="header-left"><h2>Contas a Receber</h2></div>
+      <div class="header-right">
+        <div class="user-profile">
+          <img src="https://via.placeholder.com/40" alt="Usuário" />
+          <span>Admin</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="dashboard-content">
+      <button onclick="window.location.href='dashboard.html'" class="btn-voltar">← Voltar</button>
+
+      <div class="form-container">
+        <div id="loading-overlay">
+            <div class="spinner"></div>
+          </div>
+          
+        <form id="form-contas-receber">
+          <!-- 💼 Informações Financeiras -->
+          <div class="form-bloco">
+            <h3 class="form-bloco-titulo">Informações Financeiras</h3>
+            <div class="form-section">
+              <label class="required">Categoria</label>
+              <select name="categoria" required></select>
+
+              <label class="required">Cliente</label>
+              <select name="cliente" required></select>
+
+              <label class="required">Data da Venda</label>
+              <input type="date" name="data_venda" required>
+
+              <label class="required">Forma de Pagamento</label>
+              <select name="forma_pagamento" required></select>
+
+              <label class="required">Tipo de Documento</label>
+              <select name="tipo_documento" required></select>
+
+              <label class="required">Nº Documento</label>
+              <input type="text" name="numero_documento" required>
+
+              <label class="required">Conta de Recebimento</label>
+              <select name="conta_recebimento" required></select>
+            </div>
+          </div>
+
+          <!-- 🌽 Produto e Produção -->
+          <div class="form-bloco">
+            <h3 class="form-bloco-titulo">Produto e Produção</h3>
+            <div class="form-section">
+              <label>Variedade (Produto)</label>
+              <select name="produto"></select>
+
+              <label>Safra</label>
+              <select name="safra"></select>
+
+              <label>Talhão</label>
+              <select name="talhao"></select>
+
+              <label>Peso Bruto (kg)</label>
+              <input type="number" name="peso_bruto" step="0.01">
+
+              <label>Refugo (kg)</label>
+              <input type="number" name="refugo" step="0.01">
+
+              <label>Tara (kg)</label>
+              <input type="number" name="tara" step="0.01">
+
+              <label>Peso Líquido (kg)</label>
+              <input type="number" name="peso_liquido" step="0.01">
+
+              <label>Quantidade de Caixas</label>
+              <input type="number" name="quantidade_caixas" step="1">
+
+              <label>KG por Caixa</label>
+              <input type="number" name="kg_por_caixa" step="0.01">
+            </div>
+          </div>
+
+          <!-- 💵 Valores -->
+          <div class="form-bloco">
+            <h3 class="form-bloco-titulo">Valores</h3>
+            <div class="form-section">
+              <label>Valor Unitário (R$/kg ou caixa)</label>
+              <input type="number" name="valor_unitario" step="0.01">
+
+              <label class="required">Valor do Documento</label>
+              <input type="number" name="valor_documento" step="0.01" required>
+            </div>
+          </div>
+
+          <!-- 📝 Observações -->
+          <div class="form-bloco">
+            <h3 class="form-bloco-titulo">Observações</h3>
+            <div class="form-section full-width">
+              <textarea name="observacoes" placeholder="Escreva aqui..."></textarea>
+              <input type="hidden" name="tipo_movimentacao" value="receita">
+              <input type="hidden" name="dre">
+              <input type="hidden" name="categoria_principal">
+            </div>
+          </div>
+
+          <!-- 🔘 Botões -->
+          <div class="form-buttons">
+            <button type="reset" class="btn-cancelar">Cancelar</button>
+            <button type="submit" class="btn-salvar">Salvar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/frontend/assets/js/menu-cascata.js"></script>
+<script src="/frontend/assets/js/contas_receber.js"></script>
+</body>
+</html>

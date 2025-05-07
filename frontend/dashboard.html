@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agro Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css">
+    <link rel="stylesheet" href="/frontend/assets/css/dashboard.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <div class="sidebar">
+            <div class="logo">
+                <h1>Agro Dashboard</h1>
+            </div>
+            <nav class="menu">
+                <ul>
+                    <li class="active">
+                        <a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                    </li>
+                    <li class="has-submenu">
+                        <a href="#"><i class="fas fa-file-alt"></i> Relatórios <i class="fas fa-chevron-down"></i></a>
+                        <ul class="submenu">
+                            <li><a href="fluxo-caixa-mensal.html">Fluxo de Caixa Mensal</a></li>
+                            <li><a href="fluxo-caixa-anual.html">Fluxo de Caixa Anual</a></li>
+                            <li><a href="#">Margem de Contribuição</a></li>
+                            <li><a href="#">DRE</a></li>
+                            <li><a href="#">Balancete</a></li>
+                            <li><a href="#">Relatórios de Pagamento</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-submenu">
+                        <a href="#"><i class="fas fa-exchange-alt"></i> Movimentações <i class="fas fa-chevron-down"></i></a>
+                        <ul class="submenu">
+                            <li><a href="movimentacoes.html">Saldo de Contas</a></li>
+                            <li><a href="movimentacoes.html">Projeção de Caixa</a></li>
+                            <li><a href="movimentacoes.html">Contas a Pagar/Receber</a></li>
+                            <li><a href="movimentacoes.html">Baixa de pagamentos</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-submenu">
+                        <a href="#"><i class="fas fa-plus-circle"></i> Adicionar Movimentações <i class="fas fa-chevron-down"></i></a>
+                        <ul class="submenu">
+                            <li><a href="contas-a-pagar.html">Contas a Pagar</a></li>
+                            <li><a href="contas-a-receber.html">Contas a Receber</a></li>
+                            <li><a href="transferencia.html">Transferências</a></li>
+                            <li><a href="#">Aporte</a></li>
+                            <li><a href="#">Débitos bancários</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-submenu">
+                        <a href="#"><i class="fas fa-edit"></i> Cadastros <i class="fas fa-chevron-down"></i></a>
+                        <ul class="submenu">
+                            <li><a href="cadastro-fornecedor.html">Fornecedores</a></li>
+                            <li><a href="centro-custo.html">Centro de Custos</a></li>
+                            <li><a href="cadastro-cliente.html">Clientes</a></li>
+                            <li><a href="cadastro-departamentos.html">Departamentos</a></li>
+                            <li><a href="cadastro-talhao.html">Talhões</a></li>
+                            <li><a href="cadastro-safra.html">Safras</a></li>
+                            <li><a href="cadastro-contas.html">Contas Bancárias</a></li>
+                            <li><a href="cadastro-plano-conta.html">Plano de Contas</a></li>
+                            <li><a href="cadastro-produtos.html">Produtos</a></li>
+                            <li><a href="cadastro-folha-pagamentos.html">Folha de Pagamentos</a></li>
+                            <li><a href="folhas_pendentes.html">Aprovação de Folha de Pagamentos</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fas fa-university"></i> Conciliação Bancária</a>
+                    </li>
+
+                    <li class="has-submenu">
+                        <a href="#"><i class="fas fa-cogs"></i> Configurações <i class="fas fa-chevron-down"></i></a>
+                        <ul class="submenu">
+                          <li><a href="formas_pagamento.html">Formas de Pagamento</a></li>
+                          <li><a href="tipos_documento.html">Tipos de Documento</a></li>
+                          <li><a href="depara.html">Cadastro de De/Para</a></li>
+                          <li><a href="cadastro-usuario.html">Usuários</a></li>
+                        </ul>
+                      </li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <header class="header">
+                <div class="header-left">
+                    <h2>Painel de Análises</h2>
+                    <div class="last-update">
+                        <span>Última atualização: 18/04/2025 - 16:25:15</span>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div class="user-profile">
+                        <img src="https://via.placeholder.com/40" alt="User">
+                        <span>Admin</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+            </header>
+
+            <div class="dashboard-content">
+                <!-- Filtros Section -->
+                <div class="filters-section">
+                    <div class="filter-group">
+                        <label for="periodo">Período</label>
+                        <select id="periodo" class="filter-select" multiple>
+                            <option value="diario" selected>Diário</option>
+                            <option value="semanal">Semanal</option>
+                            <option value="mensal">Mensal</option>
+                            <option value="anual">Anual</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="categoria">Categoria</label>
+                        <select id="categoria" class="filter-select" multiple>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="safra">Safra</label>
+                        <select id="safra" class="filter-select" multiple>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="talhao">Talhão</label>
+                        <select id="talhao" class="filter-select" multiple>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="poduto">Produto</label>
+                        <select id="produto" class="filter-select">
+                        </select>
+                    </div>
+                    
+                    <div class="filter-actions">
+                        <button class="btn-filter btn-apply">Aplicar</button>
+                        <button class="btn-filter btn-clear">Limpar</button>
+                    </div>
+                </div>
+
+                <!-- Summary Cards -->
+                <div class="summary-cards">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Total Geral Movimentado</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-value">R$ 4.288.021,79</div>
+                            <div class="card-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Fertilizantes</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-value">R$ 0,00</div>
+                            <div class="card-icon">
+                                <i class="fas fa-seedling"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Receita Líquida</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-value">R$ 0,00</div>
+                            <div class="card-icon">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Margem de Contribuição</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-value">0,00%</div>
+                            <div class="card-icon">
+                                <i class="fas fa-percentage"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabs Section -->
+                <div class="tabs-section">
+                    <div class="tabs">
+                        <div class="tab active" data-tab="financeiro">Financeiro</div>
+                        <div class="tab" data-tab="operacional">Operacional</div>
+                        <div class="tab" data-tab="kpis">KPIs</div>
+                        <div class="tab" data-tab="detalhes">Detalhes</div>
+                    </div>
+                </div>
+
+                <!-- Financeiro Tab Content -->
+                <div class="tab-content active" id="financeiro-tab">
+                    <!-- Charts Section -->
+                    <div class="charts-section">
+                        <div class="chart-container">
+                            <div class="chart-header">
+                                <h3>Fluxo de Caixa Mensal</h3>
+                                <div class="chart-actions">
+                                    <button class="btn-chart-action"><i class="fas fa-download"></i></button>
+                                    <button class="btn-chart-action"><i class="fas fa-expand"></i></button>
+                                </div>
+                            </div>
+                            <div class="chart-body">
+                                <canvas id="cashFlowChart"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="chart-container">
+                            <div class="chart-header">
+                                <h3>Gastos por Categoria</h3>
+                                <div class="chart-actions">
+                                    <button class="btn-chart-action"><i class="fas fa-download"></i></button>
+                                    <button class="btn-chart-action"><i class="fas fa-expand"></i></button>
+                                </div>
+                            </div>
+                            <div class="chart-body">
+                                <canvas id="expensesByCategoryChart"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="chart-container">
+                            <div class="chart-header">
+                                <h3>Comparativo Receitas vs Despesas</h3>
+                                <div class="chart-actions">
+                                    <button class="btn-chart-action"><i class="fas fa-download"></i></button>
+                                    <button class="btn-chart-action"><i class="fas fa-expand"></i></button>
+                                </div>
+                            </div>
+                            <div class="chart-body">
+                                <canvas id="revenueVsExpensesChart"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="chart-container">
+                            <div class="chart-header">
+                                <h3>Evolução do Saldo Bancário</h3>
+                                <div class="chart-actions">
+                                    <button class="btn-chart-action"><i class="fas fa-download"></i></button>
+                                    <button class="btn-chart-action"><i class="fas fa-expand"></i></button>
+                                </div>
+                            </div>
+                            <div class="chart-body">
+                                <canvas id="bankBalanceChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Operacional Tab Content -->
+                <div class="tab-content" id="operacional-tab">
+                    <div class="charts-section">
+                        <div class="chart-container">
+                            <div class="chart-header">
+                                <h3>Receita por Produto</h3>
+                                <div class="chart-actions">
+                                    <button class="btn-chart-action"><i class="fas fa-download"></i></button>
+                                    <button class="btn-chart-action"><i class="fas fa-expand"></i></button>
+                                </div>
+                            </div>
+                            <div class="chart-body">
+                                <canvas id="revenueByProductChart"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="chart-container">
+                            <div class="chart-header">
+                                <h3>Custo por Talhão</h3>
+                                <div class="chart-actions">
+                                    <button class="btn-chart-action"><i class="fas fa-download"></i></button>
+                                    <button class="btn-chart-action"><i class="fas fa-expand"></i></button>
+                                </div>
+                            </div>
+                            <div class="chart-body">
+                                <canvas id="costByPlotChart"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="chart-container">
+                            <div class="chart-header">
+                                <h3>Margem de Contribuição por Cultura</h3>
+                                <div class="chart-actions">
+                                    <button class="btn-chart-action"><i class="fas fa-download"></i></button>
+                                    <button class="btn-chart-action"><i class="fas fa-expand"></i></button>
+                                </div>
+                            </div>
+                            <div class="chart-body">
+                                <canvas id="marginByCropChart"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="chart-container">
+                            <div class="chart-header">
+                                <h3>Despesas por Tipo de DRE</h3>
+                                <div class="chart-actions">
+                                    <button class="btn-chart-action"><i class="fas fa-download"></i></button>
+                                    <button class="btn-chart-action"><i class="fas fa-expand"></i></button>
+                                </div>
+                            </div>
+                            <div class="chart-body">
+                                <canvas id="expensesByDreChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- KPIs Tab Content -->
+                <div class="tab-content" id="kpis-tab">
+                    <div class="charts-section">
+                        <div class="chart-container">
+                            <div class="chart-header">
+                                <h3>Indicadores Financeiros</h3>
+                                <div class="chart-actions">
+                                    <button class="btn-chart-action"><i class="fas fa-download"></i></button>
+                                    <button class="btn-chart-action"><i class="fas fa-expand"></i></button>
+                                </div>
+                            </div>
+                            <div class="chart-body">
+                                <canvas id="financialIndicatorsChart"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="chart-container">
+                            <div class="chart-header">
+                                <h3>Projeção de Caixa</h3>
+                                <div class="chart-actions">
+                                    <button class="btn-chart-action"><i class="fas fa-download"></i></button>
+                                    <button class="btn-chart-action"><i class="fas fa-expand"></i></button>
+                                </div>
+                            </div>
+                            <div class="chart-body">
+                                <canvas id="cashProjectionChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Detalhes Tab Content -->
+                <div class="tab-content" id="detalhes-tab">
+                    <!-- Tables Section -->
+                    <div class="tables-section">
+                        <div class="table-container">
+                            <div class="table-header">
+                                <h3>Vendas por Cultura</h3>
+                                <div class="table-actions">
+                                    <button class="btn-table-action"><i class="fas fa-download"></i></button>
+                                    <button class="btn-table-action"><i class="fas fa-expand"></i></button>
+                                </div>
+                            </div>
+                            <div class="table-body">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Cultura</th>
+                                            <th>Receita Líquida</th>
+                                            <th>Custos Variáveis</th>
+                                            <th>Despesas Variáveis</th>
+                                            <th>Margem de Contribuição</th>
+                                            <th>Margem (%)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Laranja Pera Rio In Natura</td>
+                                            <td>R$ 0,00</td>
+                                            <td>R$ 0,00</td>
+                                            <td>R$ 0,00</td>
+                                            <td>R$ 0,00</td>
+                                            <td>0,00%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Laranja Bahia In Natura</td>
+                                            <td>R$ 0,00</td>
+                                            <td>R$ 0,00</td>
+                                            <td>R$ 0,00</td>
+                                            <td>R$ 0,00</td>
+                                            <td>0,00%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Laranja Lima In Natura</td>
+                                            <td>R$ 0,00</td>
+                                            <td>R$ 0,00</td>
+                                            <td>R$ 0,00</td>
+                                            <td>R$ 0,00</td>
+                                            <td>0,00%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tangerina Murcote In Natura</td>
+                                            <td>R$ 0,00</td>
+                                            <td>R$ 0,00</td>
+                                            <td>R$ 0,00</td>
+                                            <td>R$ 0,00</td>
+                                            <td>0,00%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Limão Thaity In Natura</td>
+                                            <td>R$ 0,00</td>
+                                            <td>R$ 0,00</td>
+                                            <td>R$ 0,00</td>
+                                            <td>R$ 0,00</td>
+                                            <td>0,00%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Lichia In Natura</td>
+                                            <td>R$ 0,00</td>
+                                            <td>R$ 0,00</td>
+                                            <td>R$ 0,00</td>
+                                            <td>R$ 0,00</td>
+                                            <td>0,00%</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="table-container">
+                            <div class="table-header">
+                                <h3>Fluxo de Caixa</h3>
+                                <div class="table-actions">
+                                    <button class="btn-table-action"><i class="fas fa-download"></i></button>
+                                    <button class="btn-table-action"><i class="fas fa-expand"></i></button>
+                                </div>
+                            </div>
+                            <div class="table-body">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Categoria</th>
+                                            <th>22/04/2025</th>
+                                            <th>23/04/2025</th>
+                                            <th>24/04/2025</th>
+                                            <th>25/04/2025</th>
+                                            <th>26/04/2025</th>
+                                            <th>27/04/2025</th>
+                                            <th>28/04/2025</th>
+                                            <th>29/04/2025</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Entrada</td>
+                                            <td>R$ -</td>
+                                            <td>R$ -</td>
+                                            <td>R$ -</td>
+                                            <td>R$ -</td>
+                                            <td>R$ -</td>
+                                            <td>R$ -</td>
+                                            <td>R$ -</td>
+                                            <td>R$ -</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Saída</td>
+                                            <td>R$ -</td>
+                                            <td>R$ -</td>
+                                            <td>R$ -</td>
+                                            <td>R$ -</td>
+                                            <td>R$ -</td>
+                                            <td>R$ -</td>
+                                            <td>R$ -</td>
+                                            <td>R$ -</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Saldo Final</td>
+                                            <td>R$ -</td>
+                                            <td>R$ -</td>
+                                            <td>R$ -</td>
+                                            <td>R$ -</td>
+                                            <td>R$ -</td>
+                                            <td>R$ -</td>
+                                            <td>R$ -</td>
+                                            <td>R$ -</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="/frontend/assets/js/dashboard.js"></script>
+    <script src="/frontend/assets/js/menu-cascata.js"></script>
+</body>
+</html>

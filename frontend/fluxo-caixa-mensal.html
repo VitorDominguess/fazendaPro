@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Fluxo de Caixa Diário - RPAgro</title>
+    <link rel="stylesheet" href="/frontend/assets/css/cadastro-base.css">
+    <link rel="stylesheet" href="/frontend/assets/css/fluxo_de_caixa.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+<body>
+    
+    <div class="container">
+        <header class="relatorio-header">
+            <button class="btn btn-voltar" onclick="window.location.href='/frontend/dashboard.html'">
+                <i class="fas fa-arrow-left"></i> Voltar ao Dashboard
+            </button>
+            <h1>Relatório de Fluxo de Caixa Diário</h1>
+            
+            <div class="filtros-container">
+                <div class="filtro-grupo">
+                    <div class="filtro-item">
+                        <label for="ano">Ano</label>
+                        <select id="ano" class="select-padrao">
+                            <!-- Preenchido via JavaScript -->
+                        </select>
+                    </div>
+                    
+                    <div class="filtro-item">
+                        <label for="mes">Mês</label>
+                        <select id="mes" class="select-padrao">
+                            <option value="1">Janeiro</option>
+                            <option value="2">Fevereiro</option>
+                            <option value="3">Março</option>
+                            <option value="4">Abril</option>
+                            <option value="5">Maio</option>
+                            <option value="6">Junho</option>
+                            <option value="7">Julho</option>
+                            <option value="8">Agosto</option>
+                            <option value="9">Setembro</option>
+                            <option value="10">Outubro</option>
+                            <option value="11">Novembro</option>
+                            <option value="12">Dezembro</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filtro-item">
+                        <label for="conta">Conta Bancária</label>
+                        <select id="conta" class="select-padrao">
+                            <option value="todas">Todas as contas</option>
+                            <!-- Preenchido via JavaScript -->
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="filtro-grupo">
+                    <div class="filtro-item">
+                        <label for="propriedade">Propriedade</label>
+                        <select id="propriedade" class="select-padrao">
+                            <option value="todas">Todas as propriedades</option>
+                            <!-- Preenchido via JavaScript -->
+                        </select>
+                    </div>
+                    
+                    <div class="filtro-item">
+                        <label for="talhao">Talhão</label>
+                        <select id="talhao" class="select-padrao">
+                            <option value="todos">Todos os talhões</option>
+                            <!-- Preenchido via JavaScript -->
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="acoes-container">
+                <button id="btn-aplicar" class="btn btn-primary">
+                    <i class="fas fa-filter"></i> Aplicar Filtros
+                </button>
+                <button id="btn-exportar" class="btn btn-success">
+                    <i class="fas fa-file-excel"></i> Exportar Excel
+                </button>
+                <button id="btn-imprimir" class="btn btn-info">
+                    <i class="fas fa-print"></i> Imprimir
+                </button>
+            </div>
+        </header>
+        
+        <main>
+            <div id="loading-fluxo" class="carregando">Carregando fluxo de caixa...</div>
+            <div class="tabela-container">
+                <table id="tabela-fluxo-caixa" class="tabela-fluxo-caixa">
+                    <thead>
+                        <tr id="cabecalho-dias">
+                            <th class="coluna-fixa">Categoria</th>
+                            <!-- Dias do mês serão inseridos via JavaScript -->
+                            <th class="coluna-total">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Linhas de Entrada Operacional -->
+                        <tr class="categoria-principal">
+                            <td class="coluna-fixa">1. Geração Operacional</td>
+                            <!-- Células de valores serão inseridas via JavaScript -->
+                        </tr>
+                        <tr class="subcategoria entrada-valor">
+                            <td class="coluna-fixa indent-1">1.1 Receitas Operacionais</td>
+                            <!-- Células de valores serão inseridas via JavaScript -->
+                        </tr>
+                        <tr class="subcategoria saida-valor">
+                            <td class="coluna-fixa indent-1">1.2 Despesas Operacionais</td>
+                            <!-- Células de valores serão inseridas via JavaScript -->
+                        </tr>
+                        
+                        <!-- Linha de Capex -->
+                        <tr class="categoria-principal saida-valor">
+                            <td class="coluna-fixa">2. Capex</td>
+                            <!-- Células de valores serão inseridas via JavaScript -->
+                        </tr>
+                        
+                        <!-- Linhas Financeiras -->
+                        <tr class="categoria-principal saida-valor">
+                            <td class="coluna-fixa">3. Despesas Financeiras</td>
+                            <!-- Células de valores serão inseridas via JavaScript -->
+                        </tr>
+                        <tr class="categoria-principal entrada-valor">
+                            <td class="coluna-fixa">4. Receitas Financeiras</td>
+                            <!-- Células de valores serão inseridas via JavaScript -->
+                        </tr>
+                        
+                        <!-- Linha de Geração Líquida -->
+                        <tr class="categoria-principal totais-valor">
+                            <td class="coluna-fixa">5. Geração Líquida de Caixa</td>
+                            <!-- Células de valores serão inseridas via JavaScript -->
+                        </tr>
+                        
+                        <!-- Linhas de Saldo -->
+                        <tr class="categoria-principal">
+                            <td class="coluna-fixa">6. Saldo Inicial de Caixa</td>
+                            <!-- Células de valores serão inseridas via JavaScript -->
+                        </tr>
+                        <tr class="categoria-principal saldo-final">
+                            <td class="coluna-fixa">7. Saldo Final de Caixa</td>
+                            <!-- Células de valores serão inseridas via JavaScript -->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+<script src="/frontend/assets/js/fluxo-caixa.js"></script>
+</body>
+</html>

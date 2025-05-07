@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fluxo de Caixa Anual - RPAgro</title>
+    <link rel="stylesheet" href="/frontend/assets/css/cadastro-base.css">
+    <link rel="stylesheet" href="/frontend/assets/css/fluxo_de_caixa.css">
+</head>
+<body>
+    <div class="container">
+        <header class="relatorio-header">
+            <h1>Relatório de Fluxo de Caixa Anual</h1>
+
+            <div class="acoes-container">
+                <button class="btn btn-primary" onclick="window.location.href='/frontend/dashboard.html'">
+                    <i class="fas fa-arrow-left"></i> Voltar para o Dashboard
+                </button>
+            </div>
+
+            <div class="filtros-container">
+                <div class="filtro-grupo">
+                    <div class="filtro-item">
+                        <label for="ano">Ano</label>
+                        <select id="ano" class="select-padrao"></select>
+                    </div>
+
+                    <div class="filtro-item">
+                        <label for="conta">Conta Bancária</label>
+                        <select id="conta" class="select-padrao">
+                            <option value="todas">Todas as contas</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="filtro-grupo">
+                    <div class="filtro-item">
+                        <label for="propriedade">Propriedade</label>
+                        <select id="propriedade" class="select-padrao">
+                            <option value="todas">Todas as propriedades</option>
+                        </select>
+                    </div>
+
+                    <div class="filtro-item">
+                        <label for="talhao">Talhão</label>
+                        <select id="talhao" class="select-padrao">
+                            <option value="todos">Todos os talhões</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="acoes-container">
+                    <button id="btn-aplicar" class="btn btn-primary">
+                        <i class="fas fa-filter"></i> Aplicar Filtros
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <div class="tabela-container carregando" id="container-tabela">
+                <table id="tabela-fluxo-anual" class="tabela-fluxo-caixa">
+                    <thead>
+                        <tr>
+                            <th class="coluna-fixa">Categoria</th>
+                            <th>Jan</th>
+                            <th>Fev</th>
+                            <th>Mar</th>
+                            <th>Abr</th>
+                            <th>Mai</th>
+                            <th>Jun</th>
+                            <th>Jul</th>
+                            <th>Ago</th>
+                            <th>Set</th>
+                            <th>Out</th>
+                            <th>Nov</th>
+                            <th>Dez</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Linhas serão geradas via JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://kit.fontawesome.com/yourkitid.js" crossorigin="anonymous"></script>
+    <script src="/frontend/assets/js/fluxo-caixa-anual.js"></script>
+</body>
+</html>

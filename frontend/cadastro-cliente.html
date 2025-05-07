@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro de Clientes</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/frontend/assets/css/dashboard.css">
+  <link rel="stylesheet" href="/frontend/assets/css/cadastro-base.css">
+  <style>
+    .form-section.full-width { grid-column: 1 / -1; }
+    .required::after { content: " *"; color: red; }
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="logo">
+          <h1>Agro Dashboard</h1>
+      </div>
+      <nav class="menu">
+          <ul>
+              <li class="active">
+                  <a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+              </li>
+              <li class="has-submenu">
+                  <a href="#"><i class="fas fa-file-alt"></i> Relatórios <i class="fas fa-chevron-down"></i></a>
+                  <ul class="submenu">
+                      <li><a href="fluxo-caixa-mensal.html">Fluxo de Caixa Mensal</a></li>
+                      <li><a href="fluxo-caixa-anual.html">Fluxo de Caixa Anual</a></li>
+                      <li><a href="#">Margem de Contribuição</a></li>
+                      <li><a href="#">DRE</a></li>
+                      <li><a href="#">Balancete</a></li>
+                      <li><a href="#">Relatórios de Pagamento</a></li>
+                  </ul>
+              </li>
+              <li class="has-submenu">
+                  <a href="#"><i class="fas fa-exchange-alt"></i> Movimentações <i class="fas fa-chevron-down"></i></a>
+                  <ul class="submenu">
+                      <li><a href="movimentacoes.html">Saldo de Contas</a></li>
+                      <li><a href="movimentacoes.html">Projeção de Caixa</a></li>
+                      <li><a href="movimentacoes.html">Contas a Pagar/Receber</a></li>
+                      <li><a href="movimentacoes.html">Baixa de pagamentos</a></li>
+                  </ul>
+              </li>
+              <li class="has-submenu">
+                  <a href="#"><i class="fas fa-plus-circle"></i> Adicionar Movimentações <i class="fas fa-chevron-down"></i></a>
+                  <ul class="submenu">
+                      <li><a href="contas-a-pagar.html">Contas a Pagar</a></li>
+                      <li><a href="contas-a-receber.html">Contas a Receber</a></li>
+                      <li><a href="transferencia.html">Transferências</a></li>
+                      <li><a href="#">Aporte</a></li>
+                      <li><a href="#">Débitos bancários</a></li>
+                  </ul>
+              </li>
+              <li class="has-submenu">
+                  <a href="#"><i class="fas fa-edit"></i> Cadastros <i class="fas fa-chevron-down"></i></a>
+                  <ul class="submenu">
+                      <li><a href="cadastro-fornecedor.html">Fornecedores</a></li>
+                      <li><a href="centro-custo.html">Centro de Custos</a></li>
+                      <li><a href="cadastro-cliente.html">Clientes</a></li>
+                      <li><a href="cadastro-departamentos.html">Departamentos</a></li>
+                      <li><a href="cadastro-talhao.html">Talhões</a></li>
+                      <li><a href="cadastro-safra.html">Safras</a></li>
+                      <li><a href="cadastro-contas.html">Contas Bancárias</a></li>
+                      <li><a href="cadastro-plano-conta.html">Plano de Contas</a></li>
+                      <li><a href="cadastro-produtos.html">Produtos</a></li>
+                      <li><a href="cadastro-folha-pagamentos.html">Folha de Pagamentos</a></li>
+                      <li><a href="folhas_pendentes.html">Aprovação de Folha de Pagamentos</a></li>
+                  </ul>
+              </li>
+              <li>
+                  <a href="#"><i class="fas fa-university"></i> Conciliação Bancária</a>
+              </li>
+
+              <li class="has-submenu">
+                  <a href="#"><i class="fas fa-cogs"></i> Configurações <i class="fas fa-chevron-down"></i></a>
+                  <ul class="submenu">
+                    <li><a href="formas_pagamento.html">Formas de Pagamento</a></li>
+                    <li><a href="tipos_documento.html">Tipos de Documento</a></li>
+                    <li><a href="depara.html">Cadastro de De/Para</a></li>
+                    <li><a href="cadastro-usuario.html">Usuários</a></li>
+                  </ul>
+                </li>
+          </ul>
+      </nav>
+  </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <header class="header">
+        <div class="header-left">
+          <h2>Cadastro de Clientes</h2>
+        </div>
+        <div class="header-right">
+          <div class="user-profile">
+            <img src="https://via.placeholder.com/40" alt="Usuário">
+            <span>Admin</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="dashboard-content">
+        <button onclick="window.location.href='dashboard.html'" class="btn-voltar">← Voltar ao Dashboard</button>
+
+        <div class="form-container">
+          <form id="form-cliente">
+            <input type="hidden" name="id" id="cliente-id">
+
+            <!-- 🧾 Dados do Cliente -->
+            <!-- 🧾 Dados do Cliente -->
+<div class="form-bloco">
+    <h3 class="form-bloco-titulo">Dados do Cliente</h3>
+  
+    <!-- Tipo e Situação -->
+    <div class="form-section">
+      <label class="required">Tipo de Cliente</label>
+      <select name="tipo_cliente" >
+        <option value="juridica" selected>Jurídica</option>
+        <option value="fisica">Física</option>
+      </select>
+  
+      <label class="required">Situação</label>
+      <select name="situacao" >
+        <option value="ativo" selected>Ativo</option>
+        <option value="inativo">Inativo</option>
+      </select>
+
+      <label id="label-nome-fantasia" class="required">Nome Fantasia</label>
+      <input type="text" name="nome_fantasia"  />
+    </div>
+  
+    <!-- Campos de PJ -->
+    <div class="form-section" id="dados-juridica">
+      <label class="required">CNPJ</label>
+      <input type="text" name="cnpj"  />
+  
+      <label class="required">Razão Social</label>
+      <input type="text" name="razao_social"  />
+  
+      <label>Inscrição Estadual</label>
+      <input type="text" name="ie" />
+    </div>
+  
+    <!-- Campos de PF -->
+    <div class="form-section" id="dados-fisica" style="display:none;">
+      <label class="required">CPF</label>
+      <input type="text" name="cpf" />
+  
+      <label>RG</label>
+      <input type="text" name="rg" />
+  
+      <label>Data de Nascimento</label>
+      <input type="date" name="data_nascimento" />
+    </div>
+  
+  </div>
+  
+
+            <!-- 📞 Contato -->
+            <div class="form-bloco">
+              <h3 class="form-bloco-titulo">Contato</h3>
+              <div class="form-section">
+                <label>Responsável</label>
+                <input type="text" name="responsavel" />
+                <label>Email</label>
+                <input type="email" name="email" />
+                <label>Telefone</label>
+                <input type="text" name="telefone" />
+                <label>Celular</label>
+                <input type="text" name="celular" />
+              </div>
+            </div>
+
+            <!-- 📍 Endereço -->
+            <div class="form-bloco">
+              <h3 class="form-bloco-titulo">Endereço</h3>
+              <div class="form-section">
+                <label>Tipo de Endereço</label>
+                <input type="text" name="tipo_endereco" />
+                <label>CEP</label>
+                <input type="text" name="cep" />
+                <label>Logradouro</label>
+                <input type="text" name="logradouro" />
+                <label>Número</label>
+                <input type="text" name="numero" />
+                <label>Complemento</label>
+                <input type="text" name="complemento" />
+                <label>Bairro</label>
+                <input type="text" name="bairro" />
+                <label>Cidade</label>
+                <input type="text" name="cidade" />
+                <label>UF</label>
+                <input type="text" name="uf" maxlength="2" />
+              </div>
+            </div>
+
+            <!-- 📝 Observações -->
+            <div class="form-bloco">
+              <h3 class="form-bloco-titulo">Observações</h3>
+              <div class="form-section full-width">
+                <textarea name="observacoes" placeholder="Escreva aqui..."></textarea>
+              </div>
+            </div>
+
+            <!-- Botões -->
+            <div class="form-buttons">
+              <button type="reset" class="btn-cancelar">Cancelar</button>
+              <button type="submit" class="btn-salvar">Salvar</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Lista de Clientes -->
+        <div class="form-container" style="margin-top: 30px;">
+          <h2>Lista de Clientes</h2>
+          <input type="text" placeholder="Buscar cliente..." id="busca-cliente" style="width: 100%; padding: 10px; margin-bottom: 10px;">
+
+          <div class="tabela-responsiva">
+            <table class="tabela-cadastro">
+              <thead>
+                <tr>
+                  <th>Nome Fantasia</th>
+                  <th>Razão Social</th>
+                  <th>CNPJ</th>
+                  <th>Email</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody id="lista-clientes"></tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+    <script src="/frontend/assets/js/clientes.js"></script>
+    <script src="/frontend/assets/js/menu-cascata.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Conciliação Bancária | Agro Dashboard</title>
+  <link rel="stylesheet" href="/frontend/assets/css/cadastro-base.css" />
+  <link rel="stylesheet" href="/frontend/assets/css/dashboard.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    /* Estilos específicos para a conciliação bancária */
+    .resultado-saldos {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 15px;
+      margin: 20px 0;
+    }
+    
+    .saldo-card {
+      background-color: var(--white);
+      border-radius: 6px;
+      padding: 15px;
+      box-shadow: var(--shadow);
+      border-left: 4px solid var(--primary-color);
+    }
+    
+    .saldo-card h4 {
+      font-size: 0.9rem;
+      color: var(--primary-color);
+      margin: 0 0 8px 0;
+      font-weight: 500;
+    }
+    
+    .saldo-card p {
+      font-size: 1.2rem;
+      margin: 0;
+      font-weight: 600;
+    }
+    
+    .diferenca-card {
+      border-left-color: var(--danger-color);
+    }
+    
+    .diferenca-positiva {
+      border-left-color: var(--success-color);
+    }
+    
+    .diferenca-negativa {
+      color: var(--danger-color);
+    }
+    
+    .diferenca-positiva-valor {
+      color: var(--success-color);
+    }
+    
+    .tabela-conciliacao {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+    
+    .tabela-conciliacao th,
+    .tabela-conciliacao td {
+      padding: 10px;
+      border-bottom: 1px solid var(--gray-medium);
+      text-align: left;
+    }
+    
+    .tabela-conciliacao th {
+      background-color: var(--primary-color);
+      color: var(--white);
+      font-weight: 600;
+    }
+    
+    .tabela-conciliacao tbody tr:nth-child(odd) {
+      background-color: var(--gray-light);
+    }
+    
+    .tabela-conciliacao tbody tr:nth-child(even) {
+      background-color: var(--white);
+    }
+    
+    .tabela-conciliacao tbody tr:hover {
+      background-color: var(--gray-medium);
+    }
+    
+    .badge-tipo {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+    
+    .badge-entrada {
+      background-color: rgba(46, 204, 113, 0.1);
+      color: var(--success-color);
+    }
+    
+    .badge-saida {
+      background-color: rgba(231, 76, 60, 0.1);
+      color: var(--danger-color);
+    }
+    
+    .acoes-tabela {
+      display: flex;
+      gap: 8px;
+    }
+    
+    .btn-tabela {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--primary-color);
+      transition: color 0.2s;
+    }
+    
+    .btn-tabela:hover {
+      color: var(--danger-color);
+    }
+    
+    .sem-resultados {
+      text-align: center;
+      padding: 30px;
+      color: var(--text-light);
+      grid-column: 1 / -1;
+    }
+    
+    .sem-resultados i {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      color: var(--gray-medium);
+    }
+    
+    .formulario-conciliacao {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    
+    .full-width {
+      grid-column: 1 / -1;
+    }
+    
+    @media (max-width: 768px) {
+      .formulario-conciliacao {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <div class="sidebar">
+        <div class="logo">
+            <h1>Agro Dashboard</h1>
+        </div>
+        <nav class="menu">
+            <ul>
+                <li class="active">
+                    <a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                </li>
+                <li class="has-submenu">
+                    <a href="#"><i class="fas fa-file-alt"></i> Relatórios <i class="fas fa-chevron-down"></i></a>
+                    <ul class="submenu">
+                        <li><a href="fluxo-caixa-mensal.html">Fluxo de Caixa Mensal</a></li>
+                        <li><a href="fluxo-caixa-anual.html">Fluxo de Caixa Anual</a></li>
+                        <li><a href="#">Margem de Contribuição</a></li>
+                        <li><a href="#">DRE</a></li>
+                        <li><a href="#">Balancete</a></li>
+                        <li><a href="#">Relatórios de Pagamento</a></li>
+                    </ul>
+                </li>
+                <li class="has-submenu">
+                    <a href="#"><i class="fas fa-exchange-alt"></i> Movimentações <i class="fas fa-chevron-down"></i></a>
+                    <ul class="submenu">
+                        <li><a href="movimentacoes.html">Saldo de Contas</a></li>
+                        <li><a href="movimentacoes.html">Projeção de Caixa</a></li>
+                        <li><a href="movimentacoes.html">Contas a Pagar/Receber</a></li>
+                        <li><a href="movimentacoes.html">Baixa de pagamentos</a></li>
+                    </ul>
+                </li>
+                <li class="has-submenu">
+                    <a href="#"><i class="fas fa-plus-circle"></i> Adicionar Movimentações <i class="fas fa-chevron-down"></i></a>
+                    <ul class="submenu">
+                        <li><a href="contas-a-pagar.html">Contas a Pagar</a></li>
+                        <li><a href="contas-a-receber.html">Contas a Receber</a></li>
+                        <li><a href="transferencia.html">Transferências</a></li>
+                        <li><a href="#">Aporte</a></li>
+                        <li><a href="#">Débitos bancários</a></li>
+                    </ul>
+                </li>
+                <li class="has-submenu">
+                    <a href="#"><i class="fas fa-edit"></i> Cadastros <i class="fas fa-chevron-down"></i></a>
+                    <ul class="submenu">
+                        <li><a href="cadastro-fornecedor.html">Fornecedores</a></li>
+                        <li><a href="centro-custo.html">Centro de Custos</a></li>
+                        <li><a href="cadastro-cliente.html">Clientes</a></li>
+                        <li><a href="cadastro-departamentos.html">Departamentos</a></li>
+                        <li><a href="cadastro-talhao.html">Talhões</a></li>
+                        <li><a href="cadastro-safra.html">Safras</a></li>
+                        <li><a href="cadastro-contas.html">Contas Bancárias</a></li>
+                        <li><a href="cadastro-plano-conta.html">Plano de Contas</a></li>
+                        <li><a href="cadastro-produtos.html">Produtos</a></li>
+                        <li><a href="cadastro-folha-pagamentos.html">Folha de Pagamentos</a></li>
+                        <li><a href="folhas_pendentes.html">Aprovação de Folha de Pagamentos</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><i class="fas fa-university"></i> Conciliação Bancária</a>
+                </li>
+  
+                <li class="has-submenu">
+                    <a href="#"><i class="fas fa-cogs"></i> Configurações <i class="fas fa-chevron-down"></i></a>
+                    <ul class="submenu">
+                      <li><a href="formas_pagamento.html">Formas de Pagamento</a></li>
+                      <li><a href="tipos_documento.html">Tipos de Documento</a></li>
+                      <li><a href="depara.html">Cadastro de De/Para</a></li>
+                      <li><a href="cadastro-usuario.html">Usuários</a></li>
+                    </ul>
+                  </li>
+            </ul>
+        </nav>
+    </div>
+    
+    <div class="main-content">
+      <div class="dashboard-content">
+        <button class="btn-voltar">
+          <i class="fas fa-arrow-left"></i> Voltar
+        </button>
+        
+        <div class="form-container">
+          <h2><i class="fas fa-money-check-alt"></i> Conciliação Bancária</h2>
+          
+          <form id="form-conciliacao" class="formulario-conciliacao">
+            <div class="form-section">
+              <label for="conta">Conta Bancária</label>
+              <select id="conta" name="conta" required>
+                <option value="">Selecione uma conta</option>
+                <option value="1">Banco do Brasil - Conta Corrente</option>
+                <option value="2">Caixa Econômica - Poupança</option>
+                <option value="3">Santander - Conta Empresa</option>
+              </select>
+            </div>
+            
+            <div class="form-section">
+              <label for="data_inicio">Data Inicial</label>
+              <input type="date" id="data_inicio" name="data_inicio" required />
+            </div>
+            
+            <div class="form-section">
+              <label for="data_fim">Data Final</label>
+              <input type="date" id="data_fim" name="data_fim" required />
+            </div>
+            
+            <div class="form-section">
+              <label for="saldo_banco">Saldo Final no Banco</label>
+              <input type="number" step="0.01" id="saldo_banco" name="saldo_banco" placeholder="R$ 0,00" required />
+            </div>
+            
+            <div class="form-section full-width">
+              <div class="form-buttons">
+                <button type="submit" class="btn-salvar">
+                  <i class="fas fa-search"></i> Conferir Saldos
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+        
+        <div id="resultados" style="display: none;">
+          <div class="form-container">
+            <h2><i class="fas fa-file-invoice-dollar"></i> Resultado da Conciliação</h2>
+            
+            <div class="resultado-saldos">
+              <div class="saldo-card">
+                <h4>Saldo Inicial</h4>
+                <p>R$ <span id="saldo_inicial">0,00</span></p>
+              </div>
+              
+              <div class="saldo-card">
+                <h4>Total de Entradas</h4>
+                <p>R$ <span id="entradas">0,00</span></p>
+              </div>
+              
+              <div class="saldo-card">
+                <h4>Total de Saídas</h4>
+                <p>R$ <span id="saidas">0,00</span></p>
+              </div>
+              
+              <div class="saldo-card">
+                <h4>Saldo no Sistema</h4>
+                <p>R$ <span id="saldo_sistema">0,00</span></p>
+              </div>
+              
+              <div class="saldo-card">
+                <h4>Saldo Informado</h4>
+                <p>R$ <span id="saldo_banco_informado">0,00</span></p>
+              </div>
+              
+              <div class="saldo-card diferenca-card" id="card-diferenca">
+                <h4>Diferença</h4>
+                <p><span id="diferenca">R$ 0,00</span></p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-container">
+            <h2><i class="fas fa-list-alt"></i> Movimentações no período</h2>
+            
+            <div class="tabela-responsiva">
+              <table class="tabela-conciliacao">
+                <thead>
+                  <tr>
+                    <th>Data</th>
+                    <th>Tipo</th>
+                    <th>Categoria</th>
+                    <th>Valor</th>
+                    <th>Descrição</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Exemplo de dados estáticos - será substituído por dados dinâmicos -->
+                  <tr>
+                    <td>15/05/2023</td>
+                    <td><span class="badge-tipo badge-entrada">Entrada</span></td>
+                    <td>Venda de Soja</td>
+                    <td>R$ 12.450,00</td>
+                    <td>Venda safra 2023</td>
+                    <td class="acoes-tabela">
+                      <button class="btn-tabela" title="Editar"><i class="fas fa-edit"></i></button>
+                      <button class="btn-tabela" title="Excluir"><i class="fas fa-trash-alt"></i></button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>18/05/2023</td>
+                    <td><span class="badge-tipo badge-saida">Saída</span></td>
+                    <td>Insumos Agrícolas</td>
+                    <td>R$ 8.720,50</td>
+                    <td>Compra de fertilizantes</td>
+                    <td class="acoes-tabela">
+                      <button class="btn-tabela" title="Editar"><i class="fas fa-edit"></i></button>
+                      <button class="btn-tabela" title="Excluir"><i class="fas fa-trash-alt"></i></button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              <div id="sem-movimentacoes" class="sem-resultados" style="display: none;">
+                <i class="fas fa-inbox"></i>
+                <h3>Nenhuma movimentação encontrada</h3>
+                <p>Não há transações para o período selecionado</p>
+              </div>
+            </div>
+            
+            <div class="form-buttons">
+              <button id="btn-exportar" class="btn-cancelar">
+                <i class="fas fa-file-export"></i> Exportar Relatório
+              </button>
+              <button id="btn-ajuste" class="btn-salvar" style="display: none;">
+                <i class="fas fa-plus-circle"></i> Lançar Ajuste
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Exemplo de script para manipulação da tela
+    document.getElementById('form-conciliacao').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Simulação de dados - na implementação real, isso viria de uma API
+      document.getElementById('saldo_inicial').textContent = '5.000,00';
+      document.getElementById('entradas').textContent = '15.720,50';
+      document.getElementById('saidas').textContent = '8.720,50';
+      document.getElementById('saldo_sistema').textContent = '12.000,00';
+      document.getElementById('saldo_banco_informado').textContent = '11.500,00';
+      
+      const diferenca = -500;
+      const diferencaElement = document.getElementById('diferenca');
+      const cardDiferenca = document.getElementById('card-diferenca');
+      
+      if(diferenca < 0) {
+        diferencaElement.textContent = `R$ ${Math.abs(diferenca).toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
+        diferencaElement.className = 'diferenca-negativa';
+        cardDiferenca.classList.remove('diferenca-positiva');
+      } else {
+        diferencaElement.textContent = `R$ ${diferenca.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
+        diferencaElement.className = 'diferenca-positiva-valor';
+        cardDiferenca.classList.add('diferenca-positiva');
+      }
+      
+      document.getElementById('resultados').style.display = 'block';
+      document.getElementById('btn-ajuste').style.display = 'inline-flex';
+      
+      // Rolar para os resultados
+      document.getElementById('resultados').scrollIntoView({ behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>

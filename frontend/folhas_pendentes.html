@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Folhas de Pagamento Pendentes</title>
+  <link rel="stylesheet" href="/frontend/assets/css/dashboard.css">
+  <link rel="stylesheet" href="/frontend/assets/css/cadastro-base.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <style>
+    .form-section.full-width { grid-column: 1 / -1; }
+    .required::after { content: " *"; color: red; }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+    .modal-content {
+      background: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      width: 400px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .modal-content input[type="date"] {
+      padding: 10px;
+      font-size: 1rem;
+    }
+    .modal-buttons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .modal-detalhes {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-conteudo {
+  background-color: #fff;
+  width: 90%;
+  max-width: 800px;
+  max-height: 80vh;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f5f5f5;
+  padding: 12px 20px;
+  border-bottom: 1px solid #ddd;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.modal-header .close-modal {
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+}
+
+.modal-body {
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.tabela-detalhes {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabela-detalhes th,
+.tabela-detalhes td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+
+.tabela-detalhes th {
+  background-color: #f0f0f0;
+}
+
+  </style>
+</head>
+<body>
+
+<div class="dashboard-container">
+  <div class="sidebar">
+    <div class="logo">
+        <h1>Agro Dashboard</h1>
+    </div>
+    <nav class="menu">
+        <ul>
+            <li class="active">
+                <a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+            </li>
+            <li class="has-submenu">
+                <a href="#"><i class="fas fa-file-alt"></i> Relatórios <i class="fas fa-chevron-down"></i></a>
+                <ul class="submenu">
+                    <li><a href="fluxo-caixa-mensal.html">Fluxo de Caixa Mensal</a></li>
+                    <li><a href="fluxo-caixa-anual.html">Fluxo de Caixa Anual</a></li>
+                    <li><a href="#">Margem de Contribuição</a></li>
+                    <li><a href="#">DRE</a></li>
+                    <li><a href="#">Balancete</a></li>
+                    <li><a href="#">Relatórios de Pagamento</a></li>
+                </ul>
+            </li>
+            <li class="has-submenu">
+                <a href="#"><i class="fas fa-exchange-alt"></i> Movimentações <i class="fas fa-chevron-down"></i></a>
+                <ul class="submenu">
+                    <li><a href="movimentacoes.html">Saldo de Contas</a></li>
+                    <li><a href="movimentacoes.html">Projeção de Caixa</a></li>
+                    <li><a href="movimentacoes.html">Contas a Pagar/Receber</a></li>
+                    <li><a href="movimentacoes.html">Baixa de pagamentos</a></li>
+                </ul>
+            </li>
+            <li class="has-submenu">
+                <a href="#"><i class="fas fa-plus-circle"></i> Adicionar Movimentações <i class="fas fa-chevron-down"></i></a>
+                <ul class="submenu">
+                    <li><a href="contas-a-pagar.html">Contas a Pagar</a></li>
+                    <li><a href="contas-a-receber.html">Contas a Receber</a></li>
+                    <li><a href="transferencia.html">Transferências</a></li>
+                    <li><a href="#">Aporte</a></li>
+                    <li><a href="#">Débitos bancários</a></li>
+                </ul>
+            </li>
+            <li class="has-submenu">
+                <a href="#"><i class="fas fa-edit"></i> Cadastros <i class="fas fa-chevron-down"></i></a>
+                <ul class="submenu">
+                    <li><a href="cadastro-fornecedor.html">Fornecedores</a></li>
+                    <li><a href="centro-custo.html">Centro de Custos</a></li>
+                    <li><a href="cadastro-cliente.html">Clientes</a></li>
+                    <li><a href="cadastro-departamentos.html">Departamentos</a></li>
+                    <li><a href="cadastro-talhao.html">Talhões</a></li>
+                    <li><a href="cadastro-safra.html">Safras</a></li>
+                    <li><a href="cadastro-contas.html">Contas Bancárias</a></li>
+                    <li><a href="cadastro-plano-conta.html">Plano de Contas</a></li>
+                    <li><a href="cadastro-produtos.html">Produtos</a></li>
+                    <li><a href="cadastro-folha-pagamentos.html">Folha de Pagamentos</a></li>
+                    <li><a href="folhas_pendentes.html">Aprovação de Folha de Pagamentos</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#"><i class="fas fa-university"></i> Conciliação Bancária</a>
+            </li>
+
+            <li class="has-submenu">
+                <a href="#"><i class="fas fa-cogs"></i> Configurações <i class="fas fa-chevron-down"></i></a>
+                <ul class="submenu">
+                  <li><a href="formas_pagamento.html">Formas de Pagamento</a></li>
+                  <li><a href="tipos_documento.html">Tipos de Documento</a></li>
+                  <li><a href="depara.html">Cadastro de De/Para</a></li>
+                  <li><a href="cadastro-usuario.html">Usuários</a></li>
+                </ul>
+              </li>
+        </ul>
+    </nav>
+</div>
+
+  <div class="main-content">
+    <header class="header">
+      <div class="header-left">
+        <h2>Folhas de Pagamento Pendentes</h2>
+      </div>
+      <div class="header-right">
+        <div class="user-profile">
+          <img src="https://via.placeholder.com/40" alt="Usuário">
+          <span>Admin</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="dashboard-content">
+      <div class="form-container">
+        <h2>Folhas Pendentes</h2>
+        <div class="tabela-responsiva">
+          <table class="tabela-cadastro">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Data Importação</th>
+                <th>Valor Total</th>
+                <th>Status</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="lista-folhas"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div id="modal-detalhes" class="modal-detalhes" style="display: none;">
+  <div class="modal-conteudo">
+    <div class="modal-header">
+      <h3>Visualização da Folha</h3>
+      <span class="close-modal" onclick="fecharModalDetalhes()">&times;</span>
+    </div>
+    <div class="modal-body">
+      <!-- O conteúdo da folha (tabela) será inserido aqui via JavaScript -->
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Modal Aprovar -->
+<!-- Modal de Aprovação -->
+<div id="modalAprovar" class="modal" style="display: none;">
+  <div class="modal-content">
+    <h2>Aprovar Folha</h2>
+
+    <label for="data-vencimento">Data de Vencimento</label>
+    <input type="date" id="data-vencimento" required>
+
+    <label for="empresa-pagadora">Empresa Pagadora</label>
+    <select id="empresa-pagadora" required></select>
+
+    <label for="conta-pagamento">Conta de Pagamento</label>
+    <select id="conta-pagamento" required></select>
+
+
+    <div class="modal-buttons">
+      <button class="btn-salvar" onclick="confirmarAprovacao()">Confirmar Aprovação</button>
+      <button class="btn-cancelar" onclick="fecharModal()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Ver Erros -->
+<div id="modalVerErros" class="modal" style="display: none;">
+  <div class="modal-content">
+    <h2>Erros na Folha</h2>
+    <div id="lista-erros" style="max-height: 300px; overflow-y: auto;"></div>
+    <div class="modal-buttons">
+      <button class="btn-cancelar" onclick="fecharModalErros()">Fechar</button>
+    </div>
+  </div>
+</div>
+
+
+
+<script src="/frontend/assets/js/menu-cascata.js"></script>
+<script src="/frontend/assets/js/folhas_pendentes.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro de Contas Bancárias</title>
+  <link rel="stylesheet" href="/frontend/assets/css/dashboard.css">
+  <link rel="stylesheet" href="/frontend/assets/css/cadastro-base.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    .form-section.full-width { grid-column: 1 / -1; }
+    .required::after { content: " *"; color: red; }
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="logo">
+          <h1>Agro Dashboard</h1>
+      </div>
+      <nav class="menu">
+          <ul>
+              <li class="active">
+                  <a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+              </li>
+              <li class="has-submenu">
+                  <a href="#"><i class="fas fa-file-alt"></i> Relatórios <i class="fas fa-chevron-down"></i></a>
+                  <ul class="submenu">
+                      <li><a href="fluxo-caixa-mensal.html">Fluxo de Caixa Mensal</a></li>
+                      <li><a href="fluxo-caixa-anual.html">Fluxo de Caixa Anual</a></li>
+                      <li><a href="#">Margem de Contribuição</a></li>
+                      <li><a href="#">DRE</a></li>
+                      <li><a href="#">Balancete</a></li>
+                      <li><a href="#">Relatórios de Pagamento</a></li>
+                  </ul>
+              </li>
+              <li class="has-submenu">
+                  <a href="#"><i class="fas fa-exchange-alt"></i> Movimentações <i class="fas fa-chevron-down"></i></a>
+                  <ul class="submenu">
+                      <li><a href="movimentacoes.html">Saldo de Contas</a></li>
+                      <li><a href="movimentacoes.html">Projeção de Caixa</a></li>
+                      <li><a href="movimentacoes.html">Contas a Pagar/Receber</a></li>
+                      <li><a href="movimentacoes.html">Baixa de pagamentos</a></li>
+                  </ul>
+              </li>
+              <li class="has-submenu">
+                  <a href="#"><i class="fas fa-plus-circle"></i> Adicionar Movimentações <i class="fas fa-chevron-down"></i></a>
+                  <ul class="submenu">
+                      <li><a href="contas-a-pagar.html">Contas a Pagar</a></li>
+                      <li><a href="contas-a-receber.html">Contas a Receber</a></li>
+                      <li><a href="transferencia.html">Transferências</a></li>
+                      <li><a href="#">Aporte</a></li>
+                      <li><a href="#">Débitos bancários</a></li>
+                  </ul>
+              </li>
+              <li class="has-submenu">
+                  <a href="#"><i class="fas fa-edit"></i> Cadastros <i class="fas fa-chevron-down"></i></a>
+                  <ul class="submenu">
+                      <li><a href="cadastro-fornecedor.html">Fornecedores</a></li>
+                      <li><a href="centro-custo.html">Centro de Custos</a></li>
+                      <li><a href="cadastro-cliente.html">Clientes</a></li>
+                      <li><a href="cadastro-departamentos.html">Departamentos</a></li>
+                      <li><a href="cadastro-talhao.html">Talhões</a></li>
+                      <li><a href="cadastro-safra.html">Safras</a></li>
+                      <li><a href="cadastro-contas.html">Contas Bancárias</a></li>
+                      <li><a href="cadastro-plano-conta.html">Plano de Contas</a></li>
+                      <li><a href="cadastro-produtos.html">Produtos</a></li>
+                      <li><a href="cadastro-folha-pagamentos.html">Folha de Pagamentos</a></li>
+                      <li><a href="folhas_pendentes.html">Aprovação de Folha de Pagamentos</a></li>
+                  </ul>
+              </li>
+              <li>
+                  <a href="#"><i class="fas fa-university"></i> Conciliação Bancária</a>
+              </li>
+
+              <li class="has-submenu">
+                  <a href="#"><i class="fas fa-cogs"></i> Configurações <i class="fas fa-chevron-down"></i></a>
+                  <ul class="submenu">
+                    <li><a href="formas_pagamento.html">Formas de Pagamento</a></li>
+                    <li><a href="tipos_documento.html">Tipos de Documento</a></li>
+                    <li><a href="depara.html">Cadastro de De/Para</a></li>
+                    <li><a href="cadastro-usuario.html">Usuários</a></li>
+                  </ul>
+                </li>
+          </ul>
+      </nav>
+  </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <header class="header">
+        <div class="header-left">
+          <h2>Cadastro de Contas Bancárias</h2>
+        </div>
+      </header>
+
+      <div class="dashboard-content">
+        <button onclick="window.location.href='dashboard.html'" class="btn-voltar">← Voltar ao Dashboard</button>
+
+        <!-- Formulário -->
+        <div class="form-container">
+          <form id="form-conta-bancaria">
+            <input type="hidden" name="id" id="conta-id">
+
+            <!-- 🏢 Dados da Empresa -->
+            <div class="form-bloco full-grid">
+              <h3 class="form-bloco-titulo">Dados da Empresa</h3>
+              <div class="form-section full-width">
+                <label class="required">Empresa</label>
+                <select name="empresa_id" id="select-empresa" required>
+                  <option value="">Selecione a empresa</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- 🏦 Dados do Banco -->
+            <div class="form-bloco">
+              <h3 class="form-bloco-titulo">Dados do Banco</h3>
+              <div class="form-section">
+                <label class="required">Nome do Banco</label>
+                <input type="text" name="nome_banco" required />
+
+                <label class="required">Número do Banco (Código BACEN)</label>
+                <input type="text" name="codigo_banco" required />
+
+                <label class="required">CNPJ do Banco</label>
+                <input type="text" name="cnpj_banco" required />
+              </div>
+            </div>
+
+            <!-- 💳 Conta Corrente -->
+            <div class="form-bloco">
+              <h3 class="form-bloco-titulo">Conta Corrente</h3>
+              <div class="form-section">
+                <label class="required">Agência</label>
+                <input type="text" name="agencia" required />
+
+                <label class="required">Conta Corrente</label>
+                <input type="text" name="conta_corrente" required />
+              </div>
+            </div>
+
+            <!-- 👤 Contato do Banco -->
+            <div class="form-bloco">
+              <h3 class="form-bloco-titulo">Contato no Banco</h3>
+              <div class="form-section">
+                <label>Nome do Contato</label>
+                <input type="text" name="contato_funcionario" />
+
+                <label>Cargo do Contato</label>
+                <input type="text" name="cargo_funcionario" />
+
+                <label>Telefone do Contato</label>
+                <input type="text" name="telefone_funcionario" />
+                
+                <label>Email do Contato</label>
+                <input type="email" name="email_funcionario" />
+              </div>
+            </div>
+
+            <!-- 💰 Saldo Inicial -->
+            <div class="form-bloco">
+              <h3 class="form-bloco-titulo">Saldo Inicial</h3>
+              <div class="form-section">
+                <label class="required">Saldo Inicial da Conta</label>
+                <input type="number" step="0.01" name="saldo_inicial" required />
+
+                <label class="required">Data do Saldo Inicial</label>
+                <input type="date" name="data_saldo_inicial" required />
+              </div>
+            </div>
+
+            <!-- Botões -->
+            <div class="form-buttons">
+              <button type="reset" class="btn-cancelar">Cancelar</button>
+              <button type="submit" class="btn-salvar">Salvar</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Lista de Contas Bancárias -->
+        <div class="form-container" style="margin-top: 30px;">
+          <h2>Lista de Contas Bancárias</h2>
+          <input type="text" placeholder="Buscar conta..." id="busca-conta" style="width: 100%; padding: 10px; margin-bottom: 10px;">
+
+          <div class="tabela-responsiva">
+            <table class="tabela-cadastro">
+              <thead>
+                <tr>
+                  <th>Empresa</th>
+                  <th>Banco</th>
+                  <th>Agência</th>
+                  <th>Conta Corrente</th>
+                  <th>Saldo Inicial</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody id="lista-contas"></tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="/frontend/assets/js/contas_bancarias.js"></script>
+  <script src="/frontend/assets/js/menu-cascata.js"></script>
+</body>
+</html>

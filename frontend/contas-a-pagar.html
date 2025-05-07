@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contas a Pagar</title>
+  <link rel="stylesheet" href="/frontend/assets/css/dashboard.css">
+  <link rel="stylesheet" href="/frontend/assets/css/cadastro-base.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <style>
+    .form-section.full-width { grid-column: 1 / -1; }
+    .required::after { content: " *"; color: red; }
+    dialog { border: none; border-radius: 8px; padding: 20px; width: 600px; max-width: 90%; }
+    dialog::backdrop { background: rgba(0, 0, 0, 0.5); }
+    .modal-actions { display: flex; justify-content: space-between; margin-top: 1em; }
+  </style>
+</head>
+<body>
+<div class="dashboard-container">
+  <div class="sidebar">
+    <div class="logo">
+        <h1>Agro Dashboard</h1>
+    </div>
+    <nav class="menu">
+        <ul>
+            <li class="active">
+                <a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+            </li>
+            <li class="has-submenu">
+                <a href="#"><i class="fas fa-file-alt"></i> Relatórios <i class="fas fa-chevron-down"></i></a>
+                <ul class="submenu">
+                    <li><a href="fluxo-caixa-mensal.html">Fluxo de Caixa Mensal</a></li>
+                    <li><a href="fluxo-caixa-anual.html">Fluxo de Caixa Anual</a></li>
+                    <li><a href="#">Margem de Contribuição</a></li>
+                    <li><a href="#">DRE</a></li>
+                    <li><a href="#">Balancete</a></li>
+                    <li><a href="#">Relatórios de Pagamento</a></li>
+                </ul>
+            </li>
+            <li class="has-submenu">
+                <a href="#"><i class="fas fa-exchange-alt"></i> Movimentações <i class="fas fa-chevron-down"></i></a>
+                <ul class="submenu">
+                    <li><a href="movimentacoes.html">Saldo de Contas</a></li>
+                    <li><a href="movimentacoes.html">Projeção de Caixa</a></li>
+                    <li><a href="movimentacoes.html">Contas a Pagar/Receber</a></li>
+                    <li><a href="movimentacoes.html">Baixa de pagamentos</a></li>
+                </ul>
+            </li>
+            <li class="has-submenu">
+                <a href="#"><i class="fas fa-plus-circle"></i> Adicionar Movimentações <i class="fas fa-chevron-down"></i></a>
+                <ul class="submenu">
+                    <li><a href="contas-a-pagar.html">Contas a Pagar</a></li>
+                    <li><a href="contas-a-receber.html">Contas a Receber</a></li>
+                    <li><a href="transferencia.html">Transferências</a></li>
+                    <li><a href="#">Aporte</a></li>
+                    <li><a href="#">Débitos bancários</a></li>
+                </ul>
+            </li>
+            <li class="has-submenu">
+                <a href="#"><i class="fas fa-edit"></i> Cadastros <i class="fas fa-chevron-down"></i></a>
+                <ul class="submenu">
+                    <li><a href="cadastro-fornecedor.html">Fornecedores</a></li>
+                    <li><a href="centro-custo.html">Centro de Custos</a></li>
+                    <li><a href="cadastro-cliente.html">Clientes</a></li>
+                    <li><a href="cadastro-departamentos.html">Departamentos</a></li>
+                    <li><a href="cadastro-talhao.html">Talhões</a></li>
+                    <li><a href="cadastro-safra.html">Safras</a></li>
+                    <li><a href="cadastro-contas.html">Contas Bancárias</a></li>
+                    <li><a href="cadastro-plano-conta.html">Plano de Contas</a></li>
+                    <li><a href="cadastro-produtos.html">Produtos</a></li>
+                    <li><a href="cadastro-folha-pagamentos.html">Folha de Pagamentos</a></li>
+                    <li><a href="folhas_pendentes.html">Aprovação de Folha de Pagamentos</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#"><i class="fas fa-university"></i> Conciliação Bancária</a>
+            </li>
+
+            <li class="has-submenu">
+                <a href="#"><i class="fas fa-cogs"></i> Configurações <i class="fas fa-chevron-down"></i></a>
+                <ul class="submenu">
+                  <li><a href="formas_pagamento.html">Formas de Pagamento</a></li>
+                  <li><a href="tipos_documento.html">Tipos de Documento</a></li>
+                  <li><a href="depara.html">Cadastro de De/Para</a></li>
+                  <li><a href="cadastro-usuario.html">Usuários</a></li>
+                </ul>
+              </li>
+        </ul>
+    </nav>
+</div>
+  <div class="main-content">
+    <header class="header">
+      <div class="header-left"><h2>Contas a Pagar</h2></div>
+      <div class="header-right">
+        <div class="user-profile">
+          <img src="https://via.placeholder.com/40" alt="Usuário">
+          <span>Admin</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="dashboard-content">
+      <button onclick="window.location.href='dashboard.html'" class="btn-voltar">← Voltar</button>
+
+      <div class="form-container">
+        <form id="form-contas-pagar">
+
+          <!-- 🏦 Dados Financeiros -->
+          <div class="form-bloco">
+            <h3 class="form-bloco-titulo">Dados Financeiros</h3>
+            <div class="form-section">
+              <label class="required">Categoria</label>
+              <select name="categoria" required></select>
+
+              <label class="required">Conta Corrente</label>
+              <select name="conta_pagamento" required></select>
+
+              <label class="required">Empresa</label>
+              <select name="empresa_pagadora" required></select>
+
+              <label class="required">Fornecedor</label>
+              <select name="fornecedor" required></select>
+
+              <label class="required">Forma de Pagamento</label>
+              <select name="forma_pagamento" required></select>
+            </div>
+          </div>
+
+          <!-- 📄 Documento -->
+          <div class="form-bloco">
+            <h3 class="form-bloco-titulo">Documento</h3>
+            <div class="form-section">
+              <label class="required">Tipo de Documento</label>
+              <select name="tipo_documento" id="tipo_documento" required></select>
+              <button type="button" id="btnRateio" class="btn-secundario" style="display: none;">Configurar Rateio</button>
+
+              <label class="required">Nº Documento</label>
+              <input type="text" name="numero_documento" required>
+
+              <label class="required">Data da Transação</label>
+              <input type="date" name="data_transacao" required>
+
+              <label class="required">Data de Vencimento</label>
+              <input type="date" name="data_vencimento" required>
+            </div>
+          </div>
+
+          <!-- 🌾 Produto e Safra -->
+          <div class="form-bloco">
+            <h3 class="form-bloco-titulo">Produto / Talhão / Safra</h3>
+            <div class="form-section">
+              <label>Produto</label>
+              <select name="produto"></select>
+
+              <label>Talhão</label>
+              <select name="talhao"></select>
+
+              <label>Safra</label>
+              <select name="safra"></select>
+            </div>
+          </div>
+
+          <!-- 💰 Valores -->
+          <div class="form-bloco">
+            <h3 class="form-bloco-titulo">Valores</h3>
+            <div class="form-section">
+              <label class="required">Valor Documento</label>
+              <input type="number" name="valor_documento" step="0.01" required>
+
+              <label>Multa</label>
+              <input type="number" name="multa" step="0.01">
+
+              <label>Juros</label>
+              <input type="number" name="juros" step="0.01">
+
+              <label>Ajuste</label>
+              <input type="number" name="ajuste" step="0.01">
+            </div>
+          </div>
+
+          <!-- 🧾 Contábil -->
+          <div class="form-bloco">
+            <h3 class="form-bloco-titulo">Contábil</h3>
+            <div class="form-section">
+              <label>Centro de Custo</label>
+              <select name="centro_custo"></select>
+
+              <label>Conta Contábil</label>
+              <select name="conta_contabil"></select>
+            </div>
+          </div>
+
+          <!-- 📝 Observações -->
+          <div class="form-bloco">
+            <h3 class="form-bloco-titulo">Observações</h3>
+            <div class="form-section full-width">
+              <textarea name="observacoes" placeholder="Escreva aqui..."></textarea>
+              <input type="hidden" name="tipo_movimentacao">
+              <input type="hidden" name="dre">
+              <input type="hidden" name="categoria_principal">
+            </div>
+          </div>
+
+          <!-- 🔘 Botões -->
+          <div class="form-buttons">
+            <button type="reset" class="btn-cancelar">Cancelar</button>
+            <button type="submit" class="btn-salvar">Salvar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 🪟 Modal de Rateio -->
+<dialog id="modalRateio">
+  <h3>Configuração de Rateio</h3>
+  <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+    <select id="modalTipoRateio">
+      <option value="">Tipo</option>
+      <option value="Propriedade">Propriedade</option>
+      <option value="Talhão">Talhão</option>
+    </select>
+
+    <select id="modalNomeRateado">
+      <option value="">Nome</option>
+    </select>
+
+    <select id="modalFormaRateio">
+      <option value="valor">Valor (R$)</option>
+      <option value="porcentagem">Percentual (%)</option>
+    </select>
+
+    <input type="number" id="modalValorRateio" step="0.01" placeholder="Valor ou %">
+    <button type="button" id="btnAddRateio">Adicionar</button>
+  </div>
+  <table class="tabela-cadastro" style="margin-top: 1em;">
+    <thead>
+      <tr>
+        <th>Tipo</th>
+        <th>Nome</th>
+        <th>Forma</th>
+        <th>Valor</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody id="modalTabelaRateio"></tbody>
+  </table>
+  <div class="modal-actions">
+    <button onclick="document.getElementById('modalRateio').close()">Fechar</button>
+    <button id="btnSalvarRateio">Salvar Rateio</button>
+  </div>
+</dialog>
+
+<script src="/frontend/assets/js/menu-cascata.js"></script>
+<script src="/frontend/assets/js/contas_pagar.js"></script>
+</body>
+</html>

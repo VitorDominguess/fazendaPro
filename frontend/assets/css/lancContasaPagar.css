@@ -1,0 +1,261 @@
+/* lancContasaPagar.css */
+
+:root {
+    --primary-color: #2C5042;
+    --primary-light: #3d6b5a;
+    --primary-dark: #1f3a30;
+    --secondary-color: #f5f5f5;
+    --text-color: #333;
+    --text-light: #777;
+    --white: #ffffff;
+    --gray-light: #f0f0f0;
+    --gray-medium: #e0e0e0;
+    --gray-dark: #cccccc;
+    --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    --danger-color: #e74c3c;
+    --danger-dark: #c0392b;
+    --success-color: #2ecc71;
+    --success-dark: #27ae60;
+    --warning-color: #f39c12;
+    --warning-dark: #d35400;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    color: var(--text-color);
+    background-color: var(--secondary-color);
+}
+
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar Styles (mantido do seu dashboard) */
+.sidebar {
+    width: 250px;
+    background-color: var(--primary-color);
+    color: var(--white);
+    transition: all 0.3s;
+    position: fixed;
+    height: 100%;
+    overflow-y: auto;
+}
+
+/* Main Content Styles */
+.main-content {
+    flex: 1;
+    margin-left: 250px;
+    transition: all 0.3s;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: var(--white);
+    box-shadow: var(--shadow);
+}
+
+.header-left h2 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--primary-color);
+}
+
+.last-update span {
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.user-profile img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+/* Form Container Styles */
+.dashboard-content {
+    padding: 20px;
+}
+
+.btn-voltar {
+    background-color: var(--gray-dark);
+    color: var(--white);
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: background-color 0.3s;
+    font-weight: 500;
+}
+
+.btn-voltar:hover {
+    background-color: var(--text-light);
+}
+
+.form-container {
+    background-color: var(--white);
+    border-radius: 8px;
+    padding: 25px;
+    box-shadow: var(--shadow);
+}
+
+.form-container h2 {
+    margin-top: 0;
+    color: var(--primary-color);
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--gray-medium);
+    font-weight: 500;
+}
+
+/* Form Styles */
+#form-contas-pagar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.form-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-section label {
+    font-weight: 500;
+    color: var(--primary-color);
+    font-size: 0.9rem;
+}
+
+.form-section input,
+.form-section select,
+.form-section textarea {
+    padding: 10px;
+    border: 1px solid var(--gray-medium);
+    border-radius: 4px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.9rem;
+    background-color: var(--white);
+    transition: all 0.3s;
+}
+
+.form-section input:focus,
+.form-section select:focus,
+.form-section textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(44, 80, 66, 0.2);
+}
+
+.form-section textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+/* Form Buttons */
+.form-buttons {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding-top: 20px;
+    border-top: 1px solid var(--gray-medium);
+}
+
+.btn-cancelar,
+.btn-salvar {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.btn-cancelar {
+    background-color: var(--danger-color);
+    color: var(--white);
+}
+
+.btn-cancelar:hover {
+    background-color: var(--danger-dark);
+}
+
+.btn-salvar {
+    background-color: var(--success-color);
+    color: var(--white);
+}
+
+.btn-salvar:hover {
+    background-color: var(--success-dark);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1200px) {
+    #form-contas-pagar {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 70px;
+        overflow: hidden;
+    }
+    
+    .sidebar .logo h1,
+    .sidebar .menu li a span,
+    .sidebar .menu li .fa-chevron-down {
+        display: none;
+    }
+    
+    .sidebar .menu li a {
+        justify-content: center;
+        padding: 15px;
+    }
+    
+    .sidebar .menu li a i {
+        margin-right: 0;
+        font-size: 1.2rem;
+    }
+    
+    .sidebar .submenu li a {
+        padding-left: 15px;
+        justify-content: center;
+    }
+    
+    .main-content {
+        margin-left: 70px;
+    }
+    
+    #form-contas-pagar {
+        grid-template-columns: 1fr;
+    }
+    
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .header-right {
+        width: 100%;
+        justify-content: flex-end;
+    }
+}

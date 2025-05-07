@@ -1,0 +1,374 @@
+/* Arquivo /frontend/assets/css/relatorio.css */
+
+/* 
+ * Estilos específicos para relatórios da RPAgro
+ * Este arquivo contém apenas os estilos para relatórios e não interfere com outros componentes
+ */
+ .container {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0;
+}
+
+/* Cabeçalho do relatório */
+.relatorio-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: var(--white);
+    padding: 1rem;
+    border-bottom: 1px solid #eaeaea;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+}
+
+.relatorio-header h1 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+/* Estilos para container de filtros */
+.filtros-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    justify-content: space-between;
+}
+
+.filtro-grupo {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.filtro-item {
+    min-width: 180px;
+}
+
+.filtro-item label {
+    display: block;
+    margin-bottom: 0.25rem;
+    font-weight: 500;
+    color: #555;
+    font-size: 0.85rem;
+}
+
+.select-padrao {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    color: #333;
+    background-color: #fcfcfc;
+}
+
+/* Estilos para container de ações */
+.acoes-container {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: flex-end;
+    margin-top: 1rem;
+}
+
+.btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-primary {
+    background-color: #f8f9fa;
+    color: #2C5042;
+    border: 1px solid #e0e0e0;
+}
+
+.btn-primary:hover {
+    background-color: #2C5042;
+    color: white;
+}
+
+.btn-success {
+    background-color: #f8f9fa;
+    color: #2ecc71;
+    border: 1px solid #e0e0e0;
+}
+
+.btn-success:hover {
+    background-color: #2ecc71;
+    color: white;
+}
+
+.btn-info {
+    background-color: #f8f9fa;
+    color: #f39c12;
+    border: 1px solid #e0e0e0;
+}
+
+.btn-info:hover {
+    background-color: #f39c12;
+    color: white;
+}
+
+/* Estilos para a tabela de fluxo de caixa */
+.tabela-container {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 1rem;
+    position: relative;
+}
+
+.tabela-fluxo-caixa {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.tabela-fluxo-caixa th,
+.tabela-fluxo-caixa td {
+    padding: 0.75rem;
+    text-align: right;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.tabela-fluxo-caixa th {
+    background-color: var(--primary-color);
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    font-weight: 600;
+}
+
+.tabela-fluxo-caixa .coluna-fixa {
+    position: sticky;
+    left: 0;
+    background-color: var(--white);
+    z-index: 4;
+    text-align: left;
+    font-weight: 500;
+    border-right: 1px solid #eaeaea;
+    min-width: 250px;
+    box-shadow: 2px 0 5px -2px rgba(0, 0, 0, 0.05);
+}
+
+.tabela-fluxo-caixa th.coluna-fixa {
+    z-index: 6;
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.tabela-fluxo-caixa .coluna-total {
+    font-weight: 600;
+    background-color: #f9f9f9;
+    border-left: 1px solid #eaeaea;
+}
+
+/* Estilos para categorias */
+.tabela-fluxo-caixa .categoria-principal td {
+    font-weight: 600;
+    border-top: 1px solid #eaeaea;
+    background-color: rgba(0, 123, 255, 0.05); /* Azul claro para categorias principais */
+    color: #007bff; /* Azul para texto */
+}
+
+.tabela-fluxo-caixa .categoria-intermediaria td {
+    background-color: rgba(108, 117, 125, 0.05); /* Cinza claro para categorias intermediárias */
+    color: #6c757d; /* Cinza para texto */
+}
+
+.tabela-fluxo-caixa .subcategoria td {
+    font-weight: normal;
+    color: #555;
+}
+
+.tabela-fluxo-caixa .indent-1 {
+    padding-left: 2rem;
+    color: #555;
+    font-size: 0.85rem;
+}
+
+/* Estilos para saldos baseados no valor */
+.saldo-positivo {
+    color: #28a745; /* Verde para valores positivos */
+    font-weight: 600;
+}
+
+.saldo-negativo {
+    color: #dc3545; /* Vermelho para valores negativos */
+    font-weight: 600;
+}
+
+.saldo-zero {
+    color: #000000; /* Preto para valores zero */
+    font-weight: 600;
+}
+
+.saldo-final {
+    font-weight: 700;
+}
+
+/* Indicador de carregamento */
+.carregando {
+    position: relative;
+    min-height: 200px;
+}
+
+.carregando:before {
+    content: "Carregando dados...";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+/* Estilos para impressão */
+@media print {
+    .relatorio-header {
+        position: static;
+        box-shadow: none;
+        border-bottom: 1px solid #ccc;
+        padding: 0.5rem 0;
+    }
+    
+    .acoes-container, 
+    .filtros-container {
+        display: none;
+    }
+    
+    .tabela-fluxo-caixa {
+        font-size: 0.8rem;
+        width: 100%;
+        page-break-inside: avoid;
+        border: none;
+    }
+    
+    .tabela-fluxo-caixa th {
+        background-color: var(--primary-color) !important;
+        color: white !important;
+        border-bottom: 1px solid #ddd;
+    }
+    
+    .tabela-fluxo-caixa .coluna-fixa {
+        background-color: #fff !important;
+        box-shadow: none;
+    }
+    
+    .tabela-fluxo-caixa th.coluna-fixa {
+        background-color: var(--primary-color) !important;
+        color: white !important;
+    }
+    
+    .categoria-principal td {
+        background-color: rgba(0, 123, 255, 0.02) !important;
+    }
+    
+    .categoria-intermediaria td {
+        background-color: rgba(108, 117, 125, 0.02) !important;
+    }
+    
+    .saldo-positivo {
+        color: #28a745 !important;
+    }
+    
+    .saldo-negativo {
+        color: #dc3545 !important;
+    }
+    
+    .saldo-zero {
+        color: #000000 !important;
+    }
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .filtros-container {
+        flex-direction: column;
+    }
+    
+    .filtro-grupo {
+        width: 100%;
+    }
+    
+    .acoes-container {
+        flex-wrap: wrap;
+    }
+    
+    .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+.th-fixada {
+    position: sticky;
+    left: 0;
+    z-index: 2;
+    background-color: inherit; /* herda o fundo da linha */
+    backdrop-filter: blur(100px);
+}
+
+
+
+.tabela-fluxo-caixa .linha-saldo-inicial td {
+    background-color: #fffbe6; /* Amarelo claro */
+    color: #856404;
+    font-weight: 600;
+}
+
+.tabela-fluxo-caixa .linha-saldo-final td {
+    background-color: #e6ffed; /* Verde claro */
+    color: #155724;
+    font-weight: 700;
+}
+
+/* Botão de voltar ao dashboard */
+.btn-voltar {
+    background-color: #f0f0f0;
+    color: #333;
+    padding: 0.4rem 0.8rem;
+    border: 1px solid #ccc;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    font-size: 0.85rem;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-voltar:hover {
+    background-color: #2C5042;
+    color: #fff;
+}
+
+/* Linhas de tipo (Receita/Despesa) */
+tr.categoria-principal {
+    background-color: #eef3ff;
+    color: #1d4ed8;
+    font-weight: bold;
+}
+
+/* Subcategorias (nível 2) */
+tr.subcategoria {
+    background-color: #f3e8ff; /* fundo roxo claro */
+    color: #6b21a8;            /* texto roxo escuro */
+    font-weight: bold;
+}

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro de Plano de Contas</title>
+  <link rel="stylesheet" href="/frontend/assets/css/dashboard.css">
+  <link rel="stylesheet" href="/frontend/assets/css/cadastro-base.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    .form-section.full-width { grid-column: 1 / -1; }
+    .required::after { content: " *"; color: red; }
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="logo">
+          <h1>Agro Dashboard</h1>
+      </div>
+      <nav class="menu">
+          <ul>
+              <li class="active">
+                  <a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+              </li>
+              <li class="has-submenu">
+                  <a href="#"><i class="fas fa-file-alt"></i> Relatórios <i class="fas fa-chevron-down"></i></a>
+                  <ul class="submenu">
+                      <li><a href="fluxo-caixa-mensal.html">Fluxo de Caixa Mensal</a></li>
+                      <li><a href="fluxo-caixa-anual.html">Fluxo de Caixa Anual</a></li>
+                      <li><a href="#">Margem de Contribuição</a></li>
+                      <li><a href="#">DRE</a></li>
+                      <li><a href="#">Balancete</a></li>
+                      <li><a href="#">Relatórios de Pagamento</a></li>
+                  </ul>
+              </li>
+              <li class="has-submenu">
+                  <a href="#"><i class="fas fa-exchange-alt"></i> Movimentações <i class="fas fa-chevron-down"></i></a>
+                  <ul class="submenu">
+                      <li><a href="movimentacoes.html">Saldo de Contas</a></li>
+                      <li><a href="movimentacoes.html">Projeção de Caixa</a></li>
+                      <li><a href="movimentacoes.html">Contas a Pagar/Receber</a></li>
+                      <li><a href="movimentacoes.html">Baixa de pagamentos</a></li>
+                  </ul>
+              </li>
+              <li class="has-submenu">
+                  <a href="#"><i class="fas fa-plus-circle"></i> Adicionar Movimentações <i class="fas fa-chevron-down"></i></a>
+                  <ul class="submenu">
+                      <li><a href="contas-a-pagar.html">Contas a Pagar</a></li>
+                      <li><a href="contas-a-receber.html">Contas a Receber</a></li>
+                      <li><a href="transferencia.html">Transferências</a></li>
+                      <li><a href="#">Aporte</a></li>
+                      <li><a href="#">Débitos bancários</a></li>
+                  </ul>
+              </li>
+              <li class="has-submenu">
+                  <a href="#"><i class="fas fa-edit"></i> Cadastros <i class="fas fa-chevron-down"></i></a>
+                  <ul class="submenu">
+                      <li><a href="cadastro-fornecedor.html">Fornecedores</a></li>
+                      <li><a href="centro-custo.html">Centro de Custos</a></li>
+                      <li><a href="cadastro-cliente.html">Clientes</a></li>
+                      <li><a href="cadastro-departamentos.html">Departamentos</a></li>
+                      <li><a href="cadastro-talhao.html">Talhões</a></li>
+                      <li><a href="cadastro-safra.html">Safras</a></li>
+                      <li><a href="cadastro-contas.html">Contas Bancárias</a></li>
+                      <li><a href="cadastro-plano-conta.html">Plano de Contas</a></li>
+                      <li><a href="cadastro-produtos.html">Produtos</a></li>
+                      <li><a href="cadastro-folha-pagamentos.html">Folha de Pagamentos</a></li>
+                      <li><a href="folhas_pendentes.html">Aprovação de Folha de Pagamentos</a></li>
+                  </ul>
+              </li>
+              <li>
+                  <a href="#"><i class="fas fa-university"></i> Conciliação Bancária</a>
+              </li>
+
+              <li class="has-submenu">
+                  <a href="#"><i class="fas fa-cogs"></i> Configurações <i class="fas fa-chevron-down"></i></a>
+                  <ul class="submenu">
+                    <li><a href="formas_pagamento.html">Formas de Pagamento</a></li>
+                    <li><a href="tipos_documento.html">Tipos de Documento</a></li>
+                    <li><a href="depara.html">Cadastro de De/Para</a></li>
+                    <li><a href="cadastro-usuario.html">Usuários</a></li>
+                  </ul>
+                </li>
+          </ul>
+      </nav>
+  </div>
+
+    <!-- Conteúdo Principal -->
+    <div class="main-content">
+      <header class="header">
+        <div class="header-left">
+          <h2>Cadastro de Plano de Contas</h2>
+        </div>
+      </header>
+
+      <div class="dashboard-content">
+        <button onclick="window.location.href='dashboard.html'" class="btn-voltar">← Voltar ao Dashboard</button>
+
+        <!-- Formulário -->
+        <div class="form-container">
+            <form id="form-plano-conta">
+                <input type="hidden" name="id">
+              
+                <!-- 🧩 Estrutura de Níveis -->
+                <div class="form-bloco">
+                  <h3 class="form-bloco-titulo">🧩 Estrutura dos Níveis</h3>
+              
+                  <div class="form-section full-width">
+                    <label class="required">Código Nível 1</label>
+                    <input type="text" name="codigo1" required placeholder="Ex: 1">
+              
+                    <label class="required">Descrição Nível 1</label>
+                    <input type="text" name="descricao1" required placeholder="Ex: Receita">
+                  </div>
+              
+                  <div class="form-section full-width">
+                    <label>Código Nível 2</label>
+                    <input type="text" name="codigo2" placeholder="Ex: 25">
+              
+                    <label>Descrição Nível 2</label>
+                    <input type="text" name="descricao2" placeholder="Ex: Receita Operacional">
+                  </div>
+              
+                  <div class="form-section full-width">
+                    <label>Código Nível 3</label>
+                    <input type="text" name="codigo3" placeholder="Ex: 01">
+              
+                    <label>Descrição Nível 3</label>
+                    <input type="text" name="descricao3" placeholder="Ex: Venda de Produtos">
+                  </div>
+              
+                  <div class="form-section full-width">
+                    <label>Código Nível 4</label>
+                    <input type="text" name="codigo4" placeholder="Ex: 02">
+              
+                    <label>Descrição Nível 4</label>
+                    <input type="text" name="descricao4" placeholder="Ex: Venda de Soja">
+                  </div>
+                </div>
+              
+                <!-- 🔢 Código Final -->
+                <div class="form-bloco">
+                  <h3 class="form-bloco-titulo">🔢 Código Final</h3>
+                  <div class="form-section full-width">
+                    <input type="text" name="codigo_completo" readonly placeholder="Será montado automaticamente">
+                  </div>
+                </div>
+              
+                <div class="form-buttons">
+                  <button type="reset" class="btn-cancelar">Cancelar</button>
+                  <button type="submit" class="btn-salvar">Salvar</button>
+                </div>
+              </form>
+              
+        </div>
+
+        <!-- Lista -->
+        <div class="form-container" style="margin-top: 30px;">
+          <h2>Lista de Planos de Contas</h2>
+          <input type="text" placeholder="Buscar plano..." id="busca-plano" style="width: 100%; padding: 10px; margin-bottom: 10px;">
+          <div class="tabela-responsiva">
+            <table class="tabela-cadastro">
+              <thead>
+                <tr>
+                  <th>Código</th>
+                  <th>Nível 1</th>
+                  <th>Nível 2</th>
+                  <th>Nível 3</th>
+                  <th>Nível 4</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody id="lista-planos"></tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <script src="/frontend/assets/js/plano_conta.js"></script>
+  <script src="/frontend/assets/js/menu-cascata.js"></script>
+</body>
+</html>
